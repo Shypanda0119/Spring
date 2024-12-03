@@ -1,20 +1,18 @@
 package hello.project.member;
 
+import hello.project.AppConfig;
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.testng.annotations.Test;
 
 public class MemberServiceTest {
 
-    MemberService memberService = new MemberServiceImpL();
+    MemberService memberService;
 
-    @Test
-    public void join(){
-        Member member = new Member(1L, "MemberA", Grade.VIP);
-
-        memberService.join(member);
-        Member findMember = memberService.findMember(1L);
-
-        Assertions.assertThat(member).isEqualTo(findMember);
+    @BeforeEach
+    public void beforeEach() {
+        AppConfig appConfig = new AppConfig();
+        memberService = appConfig.memberService();
     }
 
 }

@@ -2,16 +2,17 @@ package hello.project.member;
 
 public class MemberServiceImpL implements MemberService {
 
-    private final MemberRepository memberRepository = new MemoryMemberRepository();
+    private final MemberRepository memberRepository;
 
-    @Override
+    public MemberServiceImpL(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
+    }
+
     public void join(Member member) {
         memberRepository.save(member);
     }
 
-    @Override
     public Member findMember(Long memberId) {
-        return memberRepository.findMember(memberId);
+        return memberRepository.findById(memberId);
     }
-
 }
