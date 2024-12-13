@@ -9,26 +9,34 @@ import hello.project.member.MemberServiceImpL;
 import hello.project.member.MemoryMemberRepository;
 import hello.project.order.OrderService;
 import hello.project.order.OrderServiceImpL;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
+@Configuration
 public class AppConfig {
 
-    public MemberService memberService(){
-        return new MemberServiceImpL(new MemoryMemberRepository());
+    @Bean
+    public MemberService memberService() {
+        //1번
+        System.out.println("call AppConfig.memberService");
+        return new MemberServiceImpL(memberRepository());
     }
 
+    @Bean
     public OrderService orderService() {
-        return new OrderServiceImpL(
-                new MemoryMemberRepository(),
-                new FixDiscountPolicy());
+        //1번
+        System.out.println("call AppConfig.orderService");
+        return new OrderServiceImpL(memberRepository(), discountPolicy());
     }
 
+    @Bean
     public MemberRepository memberRepository() {
         return new MemoryMemberRepository();
     }
 
-    public DiscountPolicy discountPolicy(){
+    @Bean
+    public DiscountPolicy discountPolicy() {
         return new RateDiscountPolicy();
     }
 }
-
 

@@ -3,18 +3,21 @@ package hello.project;
 import hello.project.member.Grade;
 import hello.project.member.Member;
 import hello.project.member.MemberService;
-import hello.project.member.MemberServiceImpL;
 import hello.project.order.Order;
 import hello.project.order.OrderService;
-import hello.project.order.OrderServiceImpL;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
 
 import java.awt.*;
 
 public class OrderApp {
     public static void main(String[] args) {
-        AppConfig appConfig = new AppConfig();
-        MemberService memberService = appConfig.memberService();
-        OrderService orderService = appConfig.getOrderService();
+        //AppConfig appConfig = new AppConfig();
+        //MemberService memberService = appConfig.memberService();
+        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
+        MemberService memberService = applicationContext.getBean("memberService",MemberService.class);
+        OrderService orderService = applicationContext.getBean("orderService",OrderService.class);
 
         Long memberId = 1L;
         Member member = new Member(memberId, "memberA", Grade.VIP);
